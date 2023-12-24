@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.time.temporal.WeekFields;
+import java.util.List;
 
 public class HelperBase {
 
@@ -47,4 +48,19 @@ public class HelperBase {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean isElementPresent(By locator){
+       // return wd.findElements(locator).size()>0;
+       List<WebElement> list = wd.findElements(locator);
+       return list.size() > 0;
+    }
+
+    public boolean isYallaButtonNotActive(){
+       boolean res = isElementPresent(By.cssSelector("button[disabled]"));
+
+       WebElement element = wd.findElement(By.cssSelector("button[type='submit']"));
+       boolean result = element.isEnabled();
+       return res && !result;
+    }
+
 }
