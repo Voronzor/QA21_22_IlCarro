@@ -29,12 +29,18 @@ public class HelperBase {
 
     }
 
+    public void submit(){
+        wd.findElement(By.xpath("//button[@type='submit']"))
+                .click();
+    }
+
+
     public String getMessage() {
 
 //        WebElement el = wd.findElement(By.cssSelector(".dialog-container>h2"));
 //        String text = el.getText();
 //        return text;
-        pause(5000);
+        //pause(4000);
         return
                 wd.findElement(By.cssSelector(".dialog-container>h2"))
                         .getText();
