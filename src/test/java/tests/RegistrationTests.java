@@ -26,6 +26,7 @@ public class RegistrationTests extends TestBase{
                 .setLastName("Snow")
                 .setEmail("snow"+i+"@mail.ru")
                 .setPassword("Snow123654$");
+        logger.info("Test start with test data --->" + user.toString());
         app.getHelperUser().openRegistrationForm();
         app.getHelperUser().fillRegistrationForm(user);
         app.getHelperUser().checkPolicyXY();
@@ -40,6 +41,7 @@ public class RegistrationTests extends TestBase{
                 .setLastName("Simpson")
                 .setEmail("simpson@gmail.com")
                 .setPassword("Simp123456$");
+        logger.info("Test start with test data --->" + user.toString());
         app.getHelperUser().openRegistrationForm();
         app.getHelperUser().fillRegistrationForm(user);
         app.getHelperUser().checkPolicyXY();
@@ -56,6 +58,7 @@ public class RegistrationTests extends TestBase{
                 .setLastName("")
                 .setEmail("simpson@gmail.com")
                 .setPassword("Simp123456$");
+        logger.info("Test start with test data --->" + user.toString());
         app.getHelperUser().openRegistrationForm();
         app.getHelperUser().fillRegistrationForm(user);
         app.getHelperUser().checkPolicyXY();
@@ -72,6 +75,7 @@ public class RegistrationTests extends TestBase{
                 .setLastName("Simpson")
                 .setEmail("simpsongmail.com")
                 .setPassword("Simp123456$");
+        logger.info("Test start with test data --->" + user.toString());
         app.getHelperUser().openRegistrationForm();
         app.getHelperUser().fillRegistrationForm(user);
         app.getHelperUser().checkPolicyXY();
@@ -87,6 +91,7 @@ public class RegistrationTests extends TestBase{
                 .setLastName("Simpson")
                 .setEmail("simpson@gmail.com")
                 .setPassword("123456$");
+        logger.info("Test start with test data --->" + user.toString());
         app.getHelperUser().openRegistrationForm();
         app.getHelperUser().fillRegistrationForm(user);
         app.getHelperUser().checkPolicyXY();

@@ -22,6 +22,7 @@ public class AddNewCarTests extends TestBase{
 
     @Test
     public void addNewCarSuccessAll(){
+        logger.info("Start test with the name `addNewCarSuccessAll`");
         int i = new Random().nextInt(10000)+1000;
         Car car = Car.builder()
                 .location("Tel Aviv, Israel")
@@ -35,7 +36,7 @@ public class AddNewCarTests extends TestBase{
                 .price(50)
                 .about("Very nice car")
                 .build();
-
+        logger.info("Test start with test data --->" + car.toString());
         app.getHelperCar().openCarForm();
         app.getHelperCar().fillCarForm(car);
         app.getHelperCar().attachPhoto("C:\\Users\\Voronzor\\Desktop\\Projects GitHub\\QA21_22_IlCarro\\305px-Wikiniva13a.jpg");
@@ -59,7 +60,7 @@ public class AddNewCarTests extends TestBase{
                 .carRegNumber("678-900-"+i)
                 .price(50)
                 .build();
-
+        logger.info("Test start with test data --->" + car.toString());
         app.getHelperCar().openCarForm();
         app.getHelperCar().fillCarForm(car);
         app.getHelperCar().submit();
