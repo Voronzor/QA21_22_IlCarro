@@ -56,7 +56,9 @@ public class HelperCar extends HelperBase{
     }
 
     public void searchCurrentMonth(String city, String dateFrom, String dateTo){
+        clearTextBox(By.id("city"));
         typeCity(city);
+        clearTextBox(By.id("dates"));
         click(By.id("dates"));
 
         String[] from = dateFrom.split("/");
@@ -79,7 +81,9 @@ public class HelperCar extends HelperBase{
 
 
     public void searchCurrentYear(String city, String dateFrom, String dateTo) {
+        clearTextBox(By.id("city"));
         typeCity(city);
+        clearTextBox(By.id("dates"));
         click(By.id("dates"));
 
         LocalDate now = LocalDate.now();
@@ -101,7 +105,7 @@ public class HelperCar extends HelperBase{
         click(By.xpath("//div[text() = ' " + from.getDayOfMonth() + " ']"));
 
 
-        diffMonth = to.getMonthValue()-from.getDayOfMonth();
+        diffMonth = to.getMonthValue()-from.getMonthValue();
 
         if (diffMonth>0){
             clickNextMonth(diffMonth);
@@ -118,5 +122,54 @@ public class HelperCar extends HelperBase{
             click(By.cssSelector("button[aria-label ='Next month']"));
 
         }
+    }
+
+    public void searchAnyPeriod(String city, String dateFrom, String dateTo) {
+        clearTextBox(By.id("city"));
+        typeCity(city);
+        clearTextBox(By.id("dates"));
+        click(By.id("dates"));
+        LocalDate now = LocalDate.now();
+        LocalDate from = LocalDate.parse(dateFrom,DateTimeFormatter.ofPattern("M/d/yyyy"));
+        LocalDate to = LocalDate.parse(dateTo,DateTimeFormatter.ofPattern("M/d/yyyy"));
+        int diffYear;
+        int diffMonth;
+        ///***from
+        diffYear = from.getYear()-now.getYear();
+        if (diffYear==0){
+            diffMonth = from.getMonthValue()-now.getMonthValue();
+        }else {
+            diffMonth = 12-now.getMonthValue()+from.getMonthValue();
+        }
+        clickNextMonth(diffMonth);
+        String locator = String.format("//div[text() = ' %s ']", from.getDayOfMonth());
+        click(By.xpath(locator));
+
+        ///***to
+        diffYear = to.getYear()-from.getYear();
+        if(diffYear==0){
+            diffMonth = to.getMonthValue()-from.getMonthValue();
+        }else {
+            diffMonth = 12 - from.getMonthValue() + to.getMonthValue();
+        }
+        clickNextMonth(diffMonth);
+        locator = String.format("//div[text() = ' %s ']", to.getDayOfMonth());
+        click(By.xpath(locator));
+    }
+
+    public void navigateByLogo() {
+        click(By.cssSelector("a.logo"));
+    }
+
+    public void searchNotValidPeriod(String city, String dateFrom, String dateTo) {
+        typeCity(city);
+        clearTextBox(By.id("dates"));
+        type(By.id("dates"), dateFrom+" - "+dateTo);
+        click(By.cssSelector("div.cdk-overlay-backdrop"));
+    }
+
+    public boolean isErrorDisplayed(String message) {
+        String text = wd.findElement(By.cssSelector("div.ng-star-inserted")).getText();
+        return text.equals(message);
     }
 }

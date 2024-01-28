@@ -1,12 +1,14 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class SearchCarTests extends TestBase{
 @Test
     public void searchCurrentMonthSuccess(){
-        app.getHelperCar().searchCurrentMonth("Tel Aviv, Israel", "1/17/2024", "1/23/2024");
+        app.getHelperCar().searchCurrentMonth("Tel Aviv, Israel", "1/30/2024", "1/28/2024");
+        app.getHelperCar().getScreen("src/test/screenshots/currentMonth.png");
         app.getHelperCar().submit();
         Assert.assertTrue(app.getHelperCar().isListOfCarsAppeared());
     }
@@ -14,15 +16,31 @@ public class SearchCarTests extends TestBase{
 
     @Test
     public void searchCurrentYearSuccess(){
-    app.getHelperCar().searchCurrentYear("Tel Aviv, Israel", "2/20/2024", "5/23/2024");
-    app.getHelperCar().submit();
-    Assert.assertTrue(app.getHelperCar().isListOfCarsAppeared());
+        app.getHelperCar().searchCurrentYear("Tel Aviv, Israel", "2/20/2024", "5/23/2024");
+        app.getHelperCar().getScreen("src/test/screenshots/currentYear.png");
+        app.getHelperCar().submit();
+        Assert.assertTrue(app.getHelperCar().isListOfCarsAppeared());
     }
 
-//    @Test
-//    public void searchAnyPeriodSuccess(){
-//    app.getHelperCar().searchAnyPeriod("Tel Aviv, Israel", "4/20/2024", "1/07/2025");
-//    app.getHelperCar().submit();
-//    Assert.assertTrue(app.getHelperCar().isListOfCarsAppeared());
-//    }
+    @Test
+    public void searchAnyPeriodSuccess(){
+        app.getHelperCar().searchAnyPeriod("Tel Aviv, Israel", "4/20/2024", "1/14/2025");
+        app.getHelperCar().getScreen("src/test/screenshots/anyPeriod.png");
+        app.getHelperCar().submit();
+        Assert.assertTrue(app.getHelperCar().isListOfCarsAppeared());
+    }
+
+    @Test
+    public void negativeSearch(){
+    app.getHelperCar().searchNotValidPeriod("Tel Aviv, Israel", "1/18/2024", "1/23/2024");
+    Assert.assertTrue(app.getHelperCar().isYallaButtonNotActive());
+    Assert.assertTrue(app.getHelperCar().isErrorDisplayed("You can't pick date before today"));
+    }
+
+
+    @BeforeMethod
+    public void postCondition(){
+        app.getHelperCar().navigateByLogo();
+    }
+
 }
